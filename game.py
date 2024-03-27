@@ -5,6 +5,7 @@ import sys
 # internal files...
 from code_files.objects import ObjectPhysics
 from code_files.textures import ImageLoader
+from code_files.background import Tilemap
 
 
 class CherryGame:
@@ -15,15 +16,21 @@ class CherryGame:
 
         self.screen = pygame.display.set_mode((800, 600))
         self.clock = pygame.time.Clock()
+        self.movement = [False, False]
         self.assets = {
+            'decor':  ImageLoader.multiple_load("Tiles/Decor"),
+            'grass': ImageLoader.multiple_load("Tiles/Grass"),
+            'large_decor': ImageLoader.multiple_load("Tiles/Large_decor"),
+            'stone': ImageLoader.multiple_load("Tiles/Stone"),
             'player': ImageLoader.load("Player/player_1.png")
         }
         self.player = ObjectPhysics(self, 'player', (20, 400), (10, 20))
-        self.movement = [False, False]
+        self.tilemap = Tilemap(self)
         self.__run()
 
     @staticmethod
     def __game_exit():
+        """ Exiting game """
         pygame.quit()
         sys.exit()
 
@@ -47,8 +54,11 @@ class CherryGame:
     def __screen_management(self):
         """ Managing screen """
         self.screen.fill((0, 0, 0))
+
+        self.tilemap.render(self.screen)
+
         self.player.update_position((self.movement[1] - self.movement[0], 0))
-        self.player.render(self.screen)
+        self.player.render(self.screen, 'player')
 
     def __run(self):
         """ Runing game in the loop """

@@ -26,6 +26,8 @@ class ObjectPhysics:
         self.pos[0] += frame_movement[0]
         self.pos[1] += frame_movement[1]
 
+        self.velocity[1] = min(5, self.velocity[1] + 1)
+
     def render(self, surface: pygame.display, asset: str) -> None:
         """
         :param surface: Place on which player is displayed

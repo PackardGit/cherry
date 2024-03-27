@@ -24,7 +24,7 @@ class CherryGame:
             'stone': ImageLoader.multiple_load("Tiles/Stone"),
             'player': ImageLoader.load("Player/player_1.png")
         }
-        self.player = ObjectPhysics(self, 'player', (20, 400), (10, 20))
+        self.player = ObjectPhysics(self, 'player', (50, 20), (10, 20))
         self.tilemap = Tilemap(self)
         self.__run()
 

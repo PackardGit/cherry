@@ -1,13 +1,13 @@
 class Tilemap:
-    def __init__(self, game, tile_size: int = 8):
+    def __init__(self, game, tile_size: int = 16):
         self.game = game
         self.tile_size = tile_size
         self.tilemap = {}
         self.offgrid_tiles = []
 
         for i in range(10):
-            self.tilemap[str(3+i)+":10"] = {'type': 'grass', 'variant': 1, 'pos': (3+i, 10)}
-            self.tilemap["10:"+str(5+i)] = {'type': 'stone', 'variant': 1, 'pos': (10, 5+i)}
+            self.tilemap[str(3+i)+":10"] = {'type': 'grass', 'variant': 0, 'pos': (3+i, 10)}
+            self.tilemap["10:"+str(5+i)] = {'type': 'stone', 'variant': 0, 'pos': (10, 5+i)}
         print(self.tilemap)
 
     def render(self, surf):

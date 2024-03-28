@@ -45,6 +45,8 @@ class CherryGame:
                     self.movement[0] = True
                 if event.key == pygame.K_RIGHT:
                     self.movement[1] = True
+                if event.key == pygame.K_SPACE:
+                    self.player.velocity[1] = - 5
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_LEFT:
                     self.movement[0] = False
@@ -57,7 +59,7 @@ class CherryGame:
 
         self.tilemap.render(self.screen)
 
-        self.player.update_position((self.movement[1] - self.movement[0], 0))
+        self.player.update_position(self.tilemap, (self.movement[1] - self.movement[0], 0))
         self.player.render(self.screen, 'player')
 
     def __run(self):
@@ -66,7 +68,7 @@ class CherryGame:
             self.__screen_management()
             self.__manage_events()
             pygame.display.update()
-            self.clock.tick(60)
+            self.clock.tick(120)
 
 
 CherryGame()

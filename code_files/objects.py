@@ -16,17 +16,51 @@ class ObjectPhysics:
         self.pos = list(position)
         self.size = size
         self.velocity = [0, 0]
+        self.collisions = {"up": False, "down": False, "right": False, "left": False}
 
-    def update_position(self, movement: tuple = (0, 0)) -> None:
+    def rect(self):
+        return pygame.Rect(self.pos[0], self.pos[1], self.size[0], self.size[1])
+
+    def update_position(self, tilemap: any, movement: tuple = (0, 0)) -> None:
         """
+        :param tilemap: Object of background and foreground objects and its position
         :param movement: Movement of the object to be made
         :return: None
         """
+        self.collisions = {"up": False, "down": False, "right": False, "left": False}
         frame_movement = (movement[0] + self.velocity[0], movement[1] + self.velocity[1])
         self.pos[0] += frame_movement[0]
-        self.pos[1] += frame_movement[1]
+        entity_rect = self.rect()
+        for rect in tilemap.pyhsics_rects_around(self.pos):
+            if entity_rect.colliderect(rect):
+                # Collision while moving right
+                if frame_movement[0] > 0:
+                    entity_rect.right = rect.left
+                    self.collisions["right"] = True
+                # Collision while moving left
+                if frame_movement[0] < 0:
+                    entity_rect.left = rect.right
+                    self.collisions["left"] = True
+                self.pos[0] = entity_rect.x
 
-        self.velocity[1] = min(5, self.velocity[1] + 1)
+        self.pos[1] += frame_movement[1]
+        entity_rect = self.rect()
+        for rect in tilemap.pyhsics_rects_around(self.pos):
+            if entity_rect.colliderect(rect):
+                # Collision while falling down
+                if frame_movement[1] > 0:
+                    entity_rect.bottom = rect.top
+                    self.collisions["down"] = True
+                # Collision while going up
+                if frame_movement[1] < 0:
+                    entity_rect.top = rect.bottom
+                    self.collisions["up"] = True
+                self.pos[1] = entity_rect.y
+
+        self.velocity[1] = min(5, self.velocity[1] + 0.1)
+
+        if self.collisions["down"] or self.collisions["up"]:
+            self.velocity[1] = 0
 
     def render(self, surface: pygame.display, asset: str) -> None:
         """

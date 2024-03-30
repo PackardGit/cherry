@@ -19,7 +19,7 @@ class ObjectPhysics:
         self.collisions = {"up": False, "down": False, "right": False, "left": False}
 
     def rect(self):
-        return pygame.Rect(self.pos[0], self.pos[1], self.size[0], self.size[1])
+        return pygame.Rect(self.pos[0], self.pos[1], self.size[0]*3, self.size[1])
 
     def update_position(self, tilemap: any, movement: tuple = (0, 0)) -> None:
         """
@@ -62,11 +62,12 @@ class ObjectPhysics:
         if self.collisions["down"] or self.collisions["up"]:
             self.velocity[1] = 0
 
-    def render(self, surface: pygame.display, asset: str) -> None:
+    def render(self, surface: pygame.display, asset: str, offset: tuple = (0, 0)) -> None:
         """
         :param surface: Place on which player is displayed
         :param asset: Asset to be rendered
+        :param offset: Camera offset
         :return: None
         """
-        surface.blit(self.game.assets[asset], self.pos)
+        surface.blit(self.game.assets[asset], (self.pos[0] - offset[0], self.pos[1] - offset[1]))
 

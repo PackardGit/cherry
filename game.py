@@ -22,10 +22,13 @@ class CherryGame:
             'grass': ImageLoader.multiple_load("Tiles/Grass"),
             'large_decor': ImageLoader.multiple_load("Tiles/Large_decor"),
             'stone': ImageLoader.multiple_load("Tiles/Stone"),
-            'player': ImageLoader.load("Player/player_1.png")
+            'player': ImageLoader.load("Player/player_1.png"),
+            'background': ImageLoader.load("Background/background_01.png")
         }
-        self.player = ObjectPhysics(self, 'player', (50, 20), (10, 20))
+        self.player = ObjectPhysics(self, 'player', (100, 0), (10, 20))
         self.tilemap = Tilemap(self)
+
+        self.scroll = [0, 0]
         self.__run()
 
     @staticmethod
@@ -55,12 +58,12 @@ class CherryGame:
 
     def __screen_management(self):
         """ Managing screen """
-        self.screen.fill((0, 0, 0))
-
-        self.tilemap.render(self.screen)
-
+        self.screen.blit(self.assets['background'], (0, 0))
+        self.scroll[0] += (self.player.rect().centerx - self.screen.get_width() * 0.2 - self.scroll[0])
+        # self.scroll[1] += (self.player.rect().centery - self.screen.get_height() * 0.5 - self.scroll[1])
+        self.tilemap.render(self.screen, offset=tuple(self.scroll))
         self.player.update_position(self.tilemap, (self.movement[1] - self.movement[0], 0))
-        self.player.render(self.screen, 'player')
+        self.player.render(self.screen, 'player', offset=tuple(self.scroll))
 
     def __run(self):
         """ Runing game in the loop """

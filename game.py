@@ -3,8 +3,8 @@
 import pygame
 import sys
 # internal files...
-from code_files.objects import ObjectPhysics
-from code_files.textures import ImageLoader
+from code_files.objects import ObjectPhysics, Player
+from code_files.textures import ImageLoader, Animation
 from code_files.background import Tilemap
 
 
@@ -23,9 +23,13 @@ class CherryGame:
             'large_decor': ImageLoader.multiple_load("Tiles/Large_decor"),
             'stone': ImageLoader.multiple_load("Tiles/Stone"),
             'player': ImageLoader.load("Player/player_1.png"),
-            'background': ImageLoader.load("Background/background_01.png")
+            'background': ImageLoader.load("Background/background_01.png"),
+            'player/idle': Animation(ImageLoader.multiple_load("Player/Idle"),  img_dur=4),
+            'player/run': Animation(ImageLoader.multiple_load("Player/Run/"), img_dur=10),
+            'player/jump': Animation(ImageLoader.multiple_load("Player/Jump/"), img_dur=4),
+
         }
-        self.player = ObjectPhysics(self, 'player', (100, 0), (10, 20))
+        self.player = Player(self, (100, 0), (30, 30))
         self.tilemap = Tilemap(self)
 
         self.scroll = [0, 0]

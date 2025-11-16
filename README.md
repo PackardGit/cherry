@@ -2,10 +2,10 @@
 
  
 <div align="center">
-    <img src="images/editor.png" alt="editor" width="80" height="80">
+    <img src="https://github.com/PackardGit/cherry/blob/main/images/editor.PNG" alt="editor" width="80" height="80">
 
 
   <p align="center">
-\n This will be the cult contra game ported to Python using the Pygame library. Additionally, you'll be able to create your own maps (based on the first level).
+This will be the cult contra game ported to Python using the Pygame library. Additionally, you'll be able to create your own maps (based on the first level).
   </p>
 </div>

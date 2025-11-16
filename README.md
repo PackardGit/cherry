@@ -2,7 +2,7 @@
 
  
 <div align="center">
-    <img src="https://github.com/PackardGit/cherry/blob/main/images/editor.PNG" alt="editor" width="80" height="80">
+    <img src="https://github.com/PackardGit/cherry/blob/main/images/editor.PNG" alt="editor" width="400" height="400">
 
 
   <p align="center">

@@ -12,10 +12,6 @@ class Tilemap:
         self.tilemap = {}
         self.offgrid_tiles = []
 
-        for i in range(10):
-            self.tilemap[str(3+i)+";10"] = {'type': 'grass', 'variant': 0, 'pos': (3+i, 10)}
-            self.tilemap["10;"+str(5+i)] = {'type': 'stone', 'variant': 0, 'pos': (10, 5+i)}
-
     def tiles_around(self, pos: list) -> list:
         """ Method to check whether the object with the given location has encountered any obstacle
         :param pos: Position of the object
